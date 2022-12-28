@@ -1,0 +1,37 @@
+name: phaarmy
+description: A Very Good Project created by Very Good CLI.
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.18.0 <3.0.0"
+  flutter: 3.3.8
+
+dependencies:
+  bloc: ^8.1.0
+  carousel_slider: ^4.1.1
+  cloud_firestore: ^4.0.4
+  firebase_auth: ^4.1.0
+  firebase_core: ^2.1.1
+  firebase_storage: ^11.0.9
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.1
+  flutter_localizations:
+    sdk: flutter
+  flutter_screenutil: ^5.6.0
+  font_awesome_flutter: ^10.3.0
+  get: ^4.6.5
+  intl: ^0.17.0
+  lottie: ^2.0.0
+
+dev_dependencies:
+  bloc_test: ^9.1.0
+  flutter_test:
+    sdk: flutter
+  mocktail: ^0.3.0
+  very_good_analysis: ^3.1.0
+
+flutter:
+  uses-material-design: true
+  generate: true
