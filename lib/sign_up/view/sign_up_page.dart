@@ -177,12 +177,14 @@ class SignUp extends StatelessWidget {
                                       password: passwordController.text,
                                       confirmPassword:confirmpasswordController.text,),);
                                 },
+                                
                                 child: Text('Login'),
                                 height: 60,
                                 color: Color.fromARGB(255, 105, 230, 109),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(40),
                                 ),
+
                               ),
                               SizedBox(height: 30),
                               Row(

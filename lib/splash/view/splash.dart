@@ -5,7 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/route_manager.dart';
 import 'package:lottie/lottie.dart';
 import 'package:phaarmy/login_screen/view/login_Screen.dart';
-import 'package:phaarmy/slideImage/view/slideImage.dart';
+import 'package:phaarmy/home_page/view/homePage.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});

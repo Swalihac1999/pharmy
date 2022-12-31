@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:meta/meta.dart';
-import 'package:phaarmy/slideImage/view/slideImage.dart';
+import 'package:phaarmy/home_page/view/homePage.dart';
 
 part 'authentification_event.dart';
 part 'authentification_state.dart';

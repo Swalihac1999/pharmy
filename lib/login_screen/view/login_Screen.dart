@@ -5,10 +5,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:phaarmy/bottum_navigat/bottum_navigat.dart';
 import 'package:phaarmy/forgot_password/forgot_password.dart';
 import 'package:phaarmy/login_screen/bloc/authentification_bloc.dart';
 import 'package:phaarmy/sign_up/view/sign_up_page.dart';
-import 'package:phaarmy/slideImage/slideImage.dart';
+import 'package:phaarmy/home_page/homePage.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -29,7 +30,7 @@ class LoginScreen extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute<dynamic>(
-                  builder: (context) => SlidingImages(),
+                  builder: (context) => Dashbord(),
                 ));
           } else if (state is Loginfaild) {
             ScaffoldMessenger.of(context).showSnackBar(
