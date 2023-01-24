@@ -25,16 +25,19 @@ class CollectionBloc extends Bloc<CollectionEvent, CollectionState> {
           final uuid = Uuid();
           final productId = uuid.v4();
           // XFile? image = await event.img;
-          final refrence =
-              FirebaseStorage.instance.ref().child('image').child(event.img.name);
+          final refrence = FirebaseStorage.instance
+              .ref()
+              .child('image')
+              .child(event.img.name);
           final file = File(event.img.path);
           await refrence.putFile(file);
           final imageLink = await refrence.getDownloadURL();
           await formRef.doc(productId).set({
             'image': imageLink,
-            'price':event.price,
+            'price': event.price,
             'product': event.product,
             'type': event.type,
+            'productId': productId,
             'quantity': event.quantity,
             'brand': event.brand,
             'userId': auth.currentUser!.uid

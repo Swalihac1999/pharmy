@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_const, use_decorated_box, prefer_const_literals_to_create_immutables, avoid_redundant_argument_values, lines_longer_than_80_chars
+// ignore_for_file: prefer_const_constructors, unnecessary_const, use_decorated_box, prefer_const_literals_to_create_immutables, avoid_redundant_argument_values, lines_longer_than_80_chars, no_leading_underscores_for_local_identifiers, unused_local_variable
 
 import 'dart:math';
 
@@ -67,7 +67,7 @@ class LoginScreen extends StatelessWidget {
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 40,
-                            fontStyle: FontStyle.italic),
+                            fontStyle: FontStyle.italic,),
                       ),
                       SizedBox(
                         height: 10,
@@ -79,12 +79,11 @@ class LoginScreen extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    height: 50,
+                    height: 30,
                   ),
                   Expanded(
                     child: Container(
                       decoration: BoxDecoration(
-                        // ignore: prefer_const_literals_to_create_immutables
                         boxShadow: [
                           BoxShadow(
                             color: Color.fromARGB(73, 29, 29, 37),
@@ -147,7 +146,7 @@ class LoginScreen extends StatelessWidget {
                                             filled: true,
                                             fillColor: Colors.white,
                                             suffixIcon: const Icon(
-                                                Icons.remove_red_eye)),
+                                                Icons.remove_red_eye,),),
                                       ),
                                     ],
                                   ),
@@ -256,7 +255,7 @@ class LoginScreen extends StatelessWidget {
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 SignUp(),
-                                          ));
+                                          ),);
                                     },
                                     child: Text('Sigh up'),
                                   ),

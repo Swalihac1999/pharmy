@@ -7,21 +7,26 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:phaarmy/add_product/AddProduct.dart';
 import 'package:phaarmy/drawer/view/drawer.dart';
+import 'package:phaarmy/home_page/bloc/delete_bloc.dart';
 import 'package:phaarmy/home_page/view/productDetails.dart';
 
 class HomePage extends StatefulWidget {
-   HomePage({Key? key}) : super(key: key);
- 
+  HomePage({Key? key}) : super(key: key);
+
   @override
   State<HomePage> createState() => _HomePageState();
-
 }
 
 class _HomePageState extends State<HomePage> {
   Widget appBarTitle = Text("Pharmy");
+
   Icon actionIcon = Icon(Icons.search);
+
   CollectionReference todoRef =
       FirebaseFirestore.instance.collection('product_form');
+
+final _deleteproduct=DeleteBloc();
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
@@ -29,7 +34,6 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       drawer: DrawerPage(),
       appBar: AppBar(
-
         backgroundColor: Color.fromARGB(255, 105, 230, 109),
         automaticallyImplyLeading: false,
         centerTitle: true,
@@ -63,75 +67,83 @@ class _HomePageState extends State<HomePage> {
       body: Padding(
         padding: const EdgeInsets.only(top: 12),
         child: StreamBuilder(
-            stream: todoRef
-                .where('userId', isEqualTo: _auth.currentUser!.uid)
-                .snapshots(),
-            builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (snapshot.hasData) {
-                print('-------------------------------');
-                print(snapshot.data!.docs);
-                final productItems = snapshot.data!.docs;
-                return GridView.builder(
-                  gridDelegate:
-                      const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 50,
-                          crossAxisSpacing: 50,
-                          mainAxisExtent: 250,
-                          childAspectRatio: 0.75),
-                  itemCount: productItems.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return InkWell(
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ProductDetails(
-                              product: productItems[index],),
+          stream: todoRef
+              .where('userId', isEqualTo: _auth.currentUser!.uid)
+              .snapshots(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasData) {
+              print('-------------------------------');
+              print(snapshot.data!.docs);
+              final productItems = snapshot.data!.docs;
+              return GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 50,
+                    crossAxisSpacing: 50,
+                    mainAxisExtent: 250,
+                    childAspectRatio: 0.75),
+                itemCount: productItems.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return InkWell(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductDetails(
+                          product: productItems[index],
                         ),
                       ),
-                      child: Card(
-                        child: ListTile(
-                          title: Image.network(
-                            productItems[index]['image'].toString(),
-                            height: 100,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                          ),
-                          subtitle: Column(
-                            children: [
-                              Text(productItems[index]['product']
-                                  .toString(),),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                          
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                  productItems[index]['type'].toString(),),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(Icons.delete),),
-                                  IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(Icons.edit),),
-                                ],
-                              ),
-                            ],
-                          ),
+                    ),
+                    child: Card(
+                      child: ListTile(
+                        title: Image.network(
+                          productItems[index]['image'].toString(),
+                          height: 100,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                        subtitle: Column(
+                          children: [
+                            Text(
+                              productItems[index]['product'].toString(),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              productItems[index]['type'].toString(),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                IconButton(
+                                    onPressed: () {
+                                      _deleteproduct.add(DeleteProductEvent(
+                                          productId: productItems[index]
+                                                  ['productId']
+                                              .toString(),),);
+                                    },
+                                    icon: const Icon(Icons.delete_forever),),
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(Icons.edit),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                    );
-                  },
-                );
-              } else {
-                return Center(child: CircularProgressIndicator());
-              }
-            },),
+                    ),
+                  );
+                },
+              );
+            } else {
+              return Center(child: CircularProgressIndicator());
+            }
+          },
+        ),
       ),
       // floatingActionButton: FloatingActionButton(
       //   backgroundColor: Color.fromARGB(255, 105, 230, 109),
